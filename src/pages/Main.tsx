@@ -1,5 +1,5 @@
 export const Main = () => {
   return (
-    <div>Main</div>
+    <div>Главная</div>
   )
 }

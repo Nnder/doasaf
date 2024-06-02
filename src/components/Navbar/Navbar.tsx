@@ -5,10 +5,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-
-
-const pages = [{path:'/news', name:'новости'}, {path:'/newRecord', name:'Запись на обучение'}, {path:'/learn', name:'занятия'}];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = [{path:'/news', name:'новости'}, {path:'/newRecord', name:'запись на обучение'}, {path:'/learn', name:'занятия'}];
+const settings = ['Выход'];
 
 export const Navbar = () => {
 
@@ -37,25 +35,28 @@ export const Navbar = () => {
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="#app-bar-with-responsive-menu"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
-
+            <NavLink to={'/'} style={{textDecoration: 'none'}}>
+              <Box sx={{
+                display: 'flex',
+              }}>
+                <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                <Typography
+                  variant="h6"
+                  noWrap
+                  sx={{
+                    mr: 2,
+                    display: { xs: 'none', md: 'flex' },
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    letterSpacing: '.3rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                  }}
+                >
+                  LOGO
+                </Typography>
+              </Box>
+            </NavLink>
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
@@ -87,35 +88,38 @@ export const Navbar = () => {
               >
                 {pages.map((page, index) => (
                   <MenuItem key={index} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center"><NavLink to={page.path} style={{textDecoration: 'none'}}>{page.name}</NavLink></Typography>
+                    <NavLink to={page.path} style={{textDecoration: 'none'}}><Typography textAlign="center">{page.name}</Typography></NavLink>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href="#app-bar-with-responsive-menu"
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              LOGO
-            </Typography>
+            <NavLink to={'/'} style={{textDecoration: 'none'}}>
+              <Box sx={{
+                  display: 'flex',
+                }}>
+                <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                <Typography
+                  variant="h5"
+                  noWrap
+                  sx={{
+                    mr: 2,
+                    display: { xs: 'flex', md: 'none' },
+                    flexGrow: 1,
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    letterSpacing: '.3rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                  }}
+                >
+                  LOGO
+                </Typography>
+              </Box>
+            </NavLink>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page, index) => (
-                <NavLink to={page.path} style={{textDecoration: 'none'}}>
+                <NavLink key={index} to={page.path} style={{textDecoration: 'none'}}>
                   <Button
-                    key={index}
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: 'white', display: 'block' }}
                   >
