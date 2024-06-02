@@ -1,11 +1,5 @@
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
-const Root = () => {
-  return (
-    <>
-      <div>навбар + футер, {<div>Главная</div> || <Outlet/>}</div>
-    </>
-  );
-};
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Root from "../components/MainWrapper/Root";
 
 const router = createBrowserRouter([
   {
@@ -13,39 +7,42 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <div>error</div>,
     caseSensitive: true,
+    children: [
+      {
+        path: "/news",
+        element: (
+          <>
+            <div>Новости</div>
+          </>
+        ),
+      },
+      {
+        path: "/news/:id",
+        element: (
+          <>
+            <div>Новость</div>
+          </>
+        ),
+      },
+      {
+        path: "/newRecord",
+        element: (
+          <>
+            <div>Записаться на обучение</div>
+          </>
+        ),
+      },
+      {
+        path: "/learn",
+        element: (
+          <>
+            <div>обучение</div>
+          </>
+        ),
+      },
+    ]
   },
-  {
-    path: "/news",
-    element: (
-      <>
-        <div>Новости</div>
-      </>
-    ),
-  },
-  {
-    path: "/news/:id",
-    element: (
-      <>
-        <div>Новость</div>
-      </>
-    ),
-  },
-  {
-    path: "/newRecord",
-    element: (
-      <>
-        <div>Записаться на обучение</div>
-      </>
-    ),
-  },
-  {
-    path: "/learn",
-    element: (
-      <>
-        <div>обучение</div>
-      </>
-    ),
-  },
+  
   {
     path: "/sign",
     element: <div>Страница входа</div>,
