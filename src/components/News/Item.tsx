@@ -4,8 +4,6 @@ import { Paper, Typography } from "@mui/material"
 import { FC } from "react"
 import dayjs from "dayjs"
 import { Link } from "react-router-dom"
-import { Image } from "@mui/icons-material"
-
 
 export const Item: FC<{item: INews}> = ({item}) => {
   const date: string = dayjs.unix(item.createdAt.seconds).format('YYYY-MM-DD HH:mm')
@@ -63,7 +61,7 @@ export const Item: FC<{item: INews}> = ({item}) => {
                 textAlign: "left",
                 width: '100%',
                 fontSize: {xs: 12, sm: 13, md: 14, lg: 15, xl: 16},
-                p:1
+                pl:1
               }}>
                 {date}
               </Typography>

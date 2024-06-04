@@ -115,17 +115,19 @@ export const News = () => {
       flexWrap: 'wrap',
       justifyContent: 'center'
     }}>
-      <Box>
-        <CarouselWidget news={news}/>
+      <Box sx={{
+        mb:1
+      }}>
+        <CarouselWidget news={[...news.slice(0,5)]}/>
       </Box>
       <Box sx={{
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'center'
+        justifyContent: 'center',
       }}>
         {news ?
-        news.map((data)=><Item item={data} key={data.uid}/>)
+        [...news.slice(5)].map((data)=><Item item={data} key={data.uid}/>)
         : <div>null</div>}
       </Box>
       
