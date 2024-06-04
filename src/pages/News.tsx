@@ -2,8 +2,55 @@ import { Box } from "@mui/material"
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../shared/firebase";
 import { INews } from "../types/News";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Item } from "../components/News/Item";
+import { CarouselWidget } from "../components/Carousel/Carousel";
+
+
+const timeData: any[] = [
+  {
+    createdAt: {seconds: 1000000, miliseconds: 100000000},
+    header: "Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок",
+    imgs:[],
+    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
+    uid: "1"
+  },
+  {
+    createdAt: {seconds: 1000000, miliseconds: 100000000},
+    header: "Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок",
+    imgs:[],
+    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
+    uid: "2"
+  },
+  {
+    createdAt: {seconds: 1000000, miliseconds: 100000000},
+    header: "Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок",
+    imgs:[],
+    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
+    uid: "3"
+  },
+  {
+    createdAt: {seconds: 1000000, miliseconds: 100000000},
+    header: "Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок",
+    imgs:[],
+    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
+    uid: "4"
+  },
+  {
+    createdAt: {seconds: 1000000, miliseconds: 100000000},
+    header: "Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок",
+    imgs:[],
+    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
+    uid: "5"
+  },
+  {
+    createdAt: {seconds: 1000000, miliseconds: 100000000},
+    header: "Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок Заголовок",
+    imgs:[],
+    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
+    uid: "6"
+  }
+]
 
 
 export const fetchChats = async () => {
@@ -20,45 +67,40 @@ export const fetchChats = async () => {
   return News;
 };
 
-// export const subscribeOnChats = async (
-//   user: IUser,
-//   callback: (chats: IChat[]) => void,
-// ) => {
-//   const queryChats = await query(
-//     collection(db, "chats"),
-//     where("users", "array-contains", user.ref),
-//   );
-
-//   onSnapshot(queryChats, (snapshot: any) => {
-//     const chats: IChat[] = [];
-//     snapshot.forEach((doc: any) => {
-//       chats.push({ ...doc.data(), uid: doc.id });
-//     });
-
-//     callback(chats);
-//   });
-// };
-
-// const createNews = async (params: Partial<INews>) => {
-//   return await addDoc(collection(db, "news"), params);
-// };
-
 export const News = () => {
   const [news, setNews] = useState<INews[]>([])
-  fetchChats().then((data)=> {
-    setNews(data)
-  })
+
+  useEffect(()=>{
+    fetchChats().then((data)=> {
+      setNews(data)
+    }).catch((e)=>{
+      console.log(e.message);
+      setNews(timeData)
+    })
+  }, [])
+  
   
   return (
     <Box sx={{
       display: 'flex',
-      flexDirection: 'row',
+      flexDirection: 'column',
       flexWrap: 'wrap',
       justifyContent: 'center'
     }}>
-      {news ?
-      news.map((data)=><Item item={data} key={data.uid}/>)
-      : <div>null</div>}
+      <Box>
+        <CarouselWidget news={news}/>
+      </Box>
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
+      }}>
+        {news ?
+        news.map((data)=><Item item={data} key={data.uid}/>)
+        : <div>null</div>}
+      </Box>
+      
     </Box>
   )
 }

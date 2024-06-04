@@ -4,7 +4,7 @@ import "firebase/compat/auth";
 
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getStorage, ref } from "firebase/storage";
 
 const config = {
   apiKey: import.meta.env.VITE_apiKey,
@@ -20,3 +20,4 @@ const firebaseApp = initializeApp(config);
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
+export const storageNewsRef = ref(storage, "news")
