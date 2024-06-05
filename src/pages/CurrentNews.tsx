@@ -29,6 +29,13 @@ export const CurrentNews: FC<{}> = () => {
   useEffect(()=>{
     setCurrentNews(news.find((item)=>item.uid === id) || undefined)
   }, [news])
+
+  useEffect(()=>{
+    window.scroll({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, [id])
   
   if(currentNews){
     return (
