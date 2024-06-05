@@ -20,4 +20,4 @@ const firebaseApp = initializeApp(config);
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
-export const storageNewsRef = ref(storage, "news")
+export const storageNewsRef = ref(storage, "imgs")

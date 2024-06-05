@@ -4,7 +4,7 @@ import { db } from "../shared/firebase";
 import { INews } from "../types/News";
 import { useEffect, useState } from "react";
 import { Item } from "../components/News/Item";
-import { CarouselWidget } from "../components/Carousel/Carousel";
+import { CarouselWidget, MainCarouselItem } from "../components/Carousel/Carousel";
 
 
 const timeData: any[] = [
@@ -118,7 +118,7 @@ export const News = () => {
       <Box sx={{
         mb:1
       }}>
-        <CarouselWidget news={[...news.slice(0,5)]}/>
+        <CarouselWidget Component={MainCarouselItem} news={[...news.slice(0,5)]}/>
       </Box>
       <Box sx={{
         display: 'flex',
