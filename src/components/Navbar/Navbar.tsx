@@ -1,17 +1,28 @@
-import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, Toolbar, Tooltip, Typography } from "@mui/material"
+import { AppBar, Box, Button, Container, IconButton, Menu, Toolbar, Tooltip, Typography } from "@mui/material"
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
+import PersonIcon from '@mui/icons-material/Person';
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { auth } from "../../shared/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import SyncIcon from '@mui/icons-material/Sync';
+import LoginIcon from '@mui/icons-material/Login';
+import { signOut } from "firebase/auth";
+import signInWithGoogle from "../../shared/SignInWithGoogle";
+import toast from "react-hot-toast";
 
 const pages = [{path:'/news', name:'новости'}, {path:'/newRecord', name:'запись на обучение'}, {path:'/learn', name:'занятия'}];
-const settings = ['Выход'];
+const settings = [{callback: ()=> signOut(auth), name:'Выход'}];
 
 export const Navbar = () => {
-
+  const [user, loading, error] = useAuthState(auth);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  if(error)
+    toast("Ошибка авторизации")
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -131,9 +142,13 @@ export const Navbar = () => {
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
+                {loading ? <SyncIcon sx={{fontSize: 40}}/> : 
+                user ? 
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <PersonIcon sx={{fontSize: 40}}/>
                 </IconButton>
+                : <Button onClick={signInWithGoogle}><LoginIcon sx={{fontSize: 40}}/></Button>
+                }
               </Tooltip>
               <Menu
                 sx={{ mt: '45px' }}
@@ -151,9 +166,12 @@ export const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                {settings.map((setting, index) => (
+                  <MenuItem key={index} onClick={handleCloseUserMenu}>
+                    <Button onClick={setting.callback} variant="contained">
+                      {setting.name}
+                    </Button>
+                    {/* <Typography textAlign="center">{setting.name}</Typography> */}
                   </MenuItem>
                 ))}
               </Menu>
