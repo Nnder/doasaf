@@ -2,13 +2,10 @@ import { Box } from "@mui/system"
 import { INews } from "../../types/News"
 import { Paper, Typography } from "@mui/material"
 import { FC } from "react"
-import dayjs from "dayjs"
 import { Link } from "react-router-dom"
 
-export const Item: FC<{item: INews}> = ({item}) => {
-  const date: string = dayjs.unix(item.createdAt.seconds).format('YYYY-MM-DD HH:mm')
+export const Item: FC<{item: INews<string>}> = ({item}) => {
   return (
-    
       <Paper sx={{
         m: 1,
         p: 1,
@@ -24,7 +21,7 @@ export const Item: FC<{item: INews}> = ({item}) => {
               width: {xs: '100%', md: '50%'},
               height: {xs: 300, md: 300},
             }}>
-              <img src="1.jpg" height={"100%"} width={"100%"}/>
+              <img src={item.imgs[0]} height={"100%"} width={"100%"}/>
             </Box>
             <Box sx={{
               display: 'flex',
@@ -63,7 +60,7 @@ export const Item: FC<{item: INews}> = ({item}) => {
                 fontSize: {xs: 12, sm: 13, md: 14, lg: 15, xl: 16},
                 pl:1
               }}>
-                {date}
+                {item.createdAt}
               </Typography>
             </Box>
           </Box>

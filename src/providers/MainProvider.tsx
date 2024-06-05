@@ -1,7 +1,10 @@
 import { Box, ThemeProvider, createTheme } from "@mui/material";
 import { Toaster } from "react-hot-toast";
 // import AuthProvider from "./AuthProvider";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
+import { fetchChats } from "../pages/News";
+import dayjs from "dayjs";
+import { setStore, store } from "../redux/redux";
 
 const theme = createTheme({
   palette: {
@@ -56,6 +59,18 @@ const theme = createTheme({
 
 
 export default function MainProvider({ children }: PropsWithChildren) {
+  useEffect(()=>{
+    fetchChats().then((data)=> {
+      const updatedNews = data.map(newsItem => ({
+        ...newsItem,
+        createdAt: dayjs.unix(newsItem.createdAt ? newsItem.createdAt.seconds : 0).format('YYYY-MM-DD HH:mm')
+      }));
+      store.dispatch(setStore(updatedNews))
+    }).catch((e)=>{
+      console.log(e.message);
+    })
+  }, [])
+  
   return (
     <>
       <Toaster position="top-right" />

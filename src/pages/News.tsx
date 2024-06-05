@@ -1,112 +1,46 @@
 import { Box } from "@mui/material"
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../shared/firebase";
-import { INews } from "../types/News";
-import { useEffect, useState } from "react";
+import { DateTime, INews } from "../types/News";
+import {useEffect, useState } from "react";
 import { Item } from "../components/News/Item";
 import { CarouselWidget, MainCarouselItem } from "../components/Carousel/Carousel";
-
-
-const timeData: any[] = [
-  {
-    createdAt: {seconds: 1000000, miliseconds: 100000000},
-    header: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    imgs:[],
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    uid: "1"
-  },
-  {
-    createdAt: {seconds: 1000000, miliseconds: 100000000},
-    header: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    imgs:[],
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    uid: "2"
-  },
-  {
-    createdAt: {seconds: 1000000, miliseconds: 100000000},
-    header: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    imgs:[],
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    uid: "3"
-  },
-  {
-    createdAt: {seconds: 1000000, miliseconds: 100000000},
-    header: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    imgs:[],
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    uid: "4"
-  },
-  {
-    createdAt: {seconds: 1000000, miliseconds: 100000000},
-    header: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    imgs:[],
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    uid: "5"
-  },
-  {
-    createdAt: {seconds: 1000000, miliseconds: 100000000},
-    header: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    imgs:[],
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    uid: "6"
-  },
-  {
-    createdAt: {seconds: 1000000, miliseconds: 100000000},
-    header: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    imgs:[],
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    uid: "7"
-  },
-  {
-    createdAt: {seconds: 1000000, miliseconds: 100000000},
-    header: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    imgs:[],
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    uid: "8"
-  },
-  {
-    createdAt: {seconds: 1000000, miliseconds: 100000000},
-    header: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    imgs:[],
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    uid: "9"
-  },
-  {
-    createdAt: {seconds: 1000000, miliseconds: 100000000},
-    header: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    imgs:[],
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias corporis rerum illum. Voluptates excepturi dolores numquam, eius repudiandae quo itaque, quibusdam error, beatae libero odit quam labore natus assumenda. Incidunt.",
-    uid: "10"
-  },
-]
-
+import { setStore, store} from "../redux/redux";
+import dayjs from "dayjs";
 
 export const fetchChats = async () => {
   const queryChats = await query(
     collection(db, "news"),
   );
 
-  const News: INews[] = [];
+  const News: INews<DateTime>[] = [];
 
   const querySnapshot = await getDocs(queryChats);
   querySnapshot.forEach((doc) => {
-    News.push({ ...doc.data(), uid: doc.id } as INews);
+    News.push({ ...doc.data(), uid: doc.id } as INews<DateTime>);
   });
   return News;
 };
 
 export const News = () => {
-  const [news, setNews] = useState<INews[]>([])
+  const [news, setNews] = useState<INews<string>[]>([])
 
   useEffect(()=>{
     fetchChats().then((data)=> {
-      setNews(data)
+      const updatedNews = data.map(newsItem => ({
+        ...newsItem,
+        createdAt: dayjs.unix(newsItem.createdAt ? newsItem.createdAt.seconds : 0).format('YYYY-MM-DD HH:mm')
+      }));
+      store.dispatch(setStore(updatedNews))
     }).catch((e)=>{
       console.log(e.message);
-      setNews(timeData)
     })
   }, [])
-  
+
+  store.subscribe(() => {
+    console.log('store')
+    setNews(store.getState().news)
+  })
   
   return (
     <Box sx={{

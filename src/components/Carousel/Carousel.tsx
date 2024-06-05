@@ -4,7 +4,7 @@ import { FC } from "react"
 import { Link } from "react-router-dom"
 import { INews } from "../../types/News"
 
-export const CarouselWidget: FC<{news: any[], Component:FC<{item: INews}>}> = ({news, Component}) => {
+export const CarouselWidget: FC<{news: any[], Component:FC<{item: INews<string>}>}> = ({news, Component}) => {
   return (
     <Carousel sx={{
       m:1
@@ -18,7 +18,7 @@ export const CarouselWidget: FC<{news: any[], Component:FC<{item: INews}>}> = ({
   )
 }
 
-export const MainCarouselItem: FC<{item: INews}>  = ({item}) =>
+export const MainCarouselItem: FC<{item: INews<string>}>  = ({item}) =>
 {
   return (
     <Paper sx={{
@@ -47,7 +47,7 @@ export const MainCarouselItem: FC<{item: INews}>  = ({item}) =>
   )
 }
 
-export const NewsCarouselItem: FC<{item: INews}>  = ({item}) =>
+export const NewsCarouselItem: FC<{item: INews<string>}>  = ({item}) =>
   {
     return (
       <Box sx={{
