@@ -81,9 +81,15 @@ export const CurrentNews: FC<{}> = () => {
   }
 
   return (
-    <Box>
+    <Box sx={{
+      textAlign: 'center',
+      height: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
       <Typography>
-        Новость не найдена
+        ...Загрузка
       </Typography>
     </Box>
   )

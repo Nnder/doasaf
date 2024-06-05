@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../shared/firebase";
 import { DateTime, INews } from "../types/News";
@@ -41,6 +41,22 @@ export const News = () => {
     console.log('store')
     setNews(store.getState().news)
   })
+
+  if(!news.length){
+    return (
+    <Box sx={{
+      textAlign: 'center',
+      height: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <Typography>
+        ...Загрузка
+      </Typography>
+    </Box>
+    )
+  }
   
   return (
     <Box sx={{
