@@ -5,6 +5,8 @@ import { PropsWithChildren, useEffect } from "react";
 import { fetchChats } from "../pages/News";
 import dayjs from "dayjs";
 import { setStore, store } from "../redux/redux";
+import ScrollToTop from "react-scroll-up";
+import { KeyboardDoubleArrowUp } from "@mui/icons-material";
 
 const theme = createTheme({
   palette: {
@@ -83,6 +85,11 @@ export default function MainProvider({ children }: PropsWithChildren) {
               }}
             >
               {children}
+              <ScrollToTop showUnder={160}>
+                <KeyboardDoubleArrowUp sx={{
+                  fontSize: {xs: 25, sm: 30}
+                }}/>
+              </ScrollToTop>
             </Box>
           {/* </AuthProvider> */}
         </ThemeProvider>
