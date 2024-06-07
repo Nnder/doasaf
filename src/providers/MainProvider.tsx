@@ -80,8 +80,8 @@ export default function MainProvider({ children }: PropsWithChildren) {
           {/* <AuthProvider> */}
             <Box
               sx={{
-                display: { xs: "block", sm: "grid" },
-                gridTemplateColumns: "auto 1fr",
+                display: "flex",
+                flexDirection: 'column'
               }}
             >
               {children}

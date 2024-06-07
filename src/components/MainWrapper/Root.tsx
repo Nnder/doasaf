@@ -3,6 +3,7 @@ import { Box, Paper } from "@mui/material";
 import { Main } from "../../pages/Main";
 import { Navbar } from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
+import { Weather } from "../Wigets/Weather";
 
 const Root = () => {
   const outlet = useOutlet()
@@ -31,6 +32,7 @@ const Root = () => {
           {outlet || <Main/>}
         </Paper>
       </Box>
+      <Weather/>
       <Footer/>
     </Box>
   );
