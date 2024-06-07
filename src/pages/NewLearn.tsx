@@ -13,7 +13,7 @@ import {
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
 const defaultValues = {
-  createdAt: new Date(),
+  createdAt: new Date(), 
   status: "новый",
   email: "",
   phone: "",
@@ -21,7 +21,8 @@ const defaultValues = {
 };
 
 export const createUser = async (params: any) => {
-  return await addDoc(collection(db, "users"), params);
+  await addDoc(collection(db, "users"), {createdAt: new Date(), status: "новый",...params});
+  return {createdAt: new Date(), status: "новый",...params}
 };
 
 export const fetchUser = async (user: any) => {
@@ -35,16 +36,9 @@ export const fetchUser = async (user: any) => {
   const querySnapshot = await getDocs(queryChats);
   querySnapshot.forEach((doc) => {
     const data = doc.data()
-
-    
-
-    if(data.email == user.email){
+    if(data.email == user.email)
       userData = { ...doc.data(), uid: doc.id };
-      console.log("user",data.email == user.email)
-    }
-    
   });
-
   return userData;
 };
 
@@ -70,7 +64,6 @@ export const NewLearn = () => {
         // @ts-ignore
         setUserData(data)
       })
-
       // @ts-ignore
       reset({ "email": user?.email})
     }
@@ -81,7 +74,6 @@ export const NewLearn = () => {
     console.log("qw",userData)
   }, [userData])
   
-
 
   const handle = async (data: FieldValues) => {
     // @ts-ignore
@@ -98,7 +90,9 @@ export const NewLearn = () => {
     setOpen(true)
   }
   return (
-    <Box>
+    <Box sx={{
+      p:1
+    }}>
 
       <Modal
       open={open}
@@ -134,6 +128,7 @@ export const NewLearn = () => {
               rules={{ required: true }}
               render={({ field: { value, onChange } }) => (
                 <TextField
+                  disabled
                   variant="filled"
                   color={errors.email ? "error" : "secondary"}
                   sx={{ width: 1, m: 1 }}
@@ -150,7 +145,6 @@ export const NewLearn = () => {
               rules={{ required: true }}
               render={({ field: { value, onChange } }) => (
                 <TextField
-                  type="text"
                   variant="filled"
                   color={errors.phone ? "error" : "secondary"}
                   sx={{ width: 1, m: 1 }}
@@ -164,11 +158,10 @@ export const NewLearn = () => {
             <Controller
               name="message"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: false }}
               render={({ field: { value, onChange } }) => (
                 <TextField 
                   multiline
-                  type="text"
                   variant="filled"
                   color={errors.message ? "error" : "secondary"}
                   sx={{ width: 1, m: 1 }}

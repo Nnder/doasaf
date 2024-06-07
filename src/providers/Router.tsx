@@ -3,6 +3,7 @@ import Root from "../components/MainWrapper/Root";
 import { News } from "../pages/News";
 import { CurrentNews } from "../pages/CurrentNews";
 import { NewLearn } from "../pages/NewLearn";
+import { Learn } from "../pages/Learn";
 
 const router = createBrowserRouter([
   {
@@ -25,11 +26,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/learn",
-        element: (
-          <>
-            <div>обучение</div>
-          </>
-        ),
+        element: <Learn/>,
       },
     ]
   },
