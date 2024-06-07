@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Root from "../components/MainWrapper/Root";
 import { News } from "../pages/News";
 import { CurrentNews } from "../pages/CurrentNews";
+import { NewLearn } from "../pages/NewLearn";
 
 const router = createBrowserRouter([
   {
@@ -20,11 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/newRecord",
-        element: (
-          <>
-            <div>Записаться на обучение</div>
-          </>
-        ),
+        element: <NewLearn/>,
       },
       {
         path: "/learn",
