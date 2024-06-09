@@ -13,7 +13,7 @@ import { signOut } from "firebase/auth";
 import signInWithGoogle from "../../shared/SignInWithGoogle";
 import toast from "react-hot-toast";
 
-const pages = [{path:'/news', name:'новости'}, {path:'/newRecord', name:'запись на обучение'}, {path:'/learn', name:'занятия'}];
+const pages = [{path:'/news', name:'новости'}, {path:'/newRecord', name:'запись на обучение'}, {path:'/learn', name:'занятия'}, {path:'/drop', name:'прыжки с парашютом'}];
 const settings = [{callback: ()=> signOut(auth), name:'Выход'}];
 
 export const Navbar = () => {
@@ -49,8 +49,17 @@ export const Navbar = () => {
             <NavLink to={'/'} style={{textDecoration: 'none'}}>
               <Box sx={{
                 display: 'flex',
+                justifyContent:'center',
+                alignItems: 'center'
               }}>
-                <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                <Box sx={{ 
+                  display: { xs: 'none', md: 'flex' }, 
+                  mr: 1,
+                  width: '56px',
+                  height: '56px'
+                }}>
+                  <img src="logo.png" width='100%' height="100%"/>
+                </Box>
                 <Typography
                   variant="h6"
                   noWrap
@@ -64,7 +73,7 @@ export const Navbar = () => {
                     textDecoration: 'none',
                   }}
                 >
-                  LOGO
+                  ДОСААФ
                 </Typography>
               </Box>
             </NavLink>

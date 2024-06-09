@@ -4,6 +4,7 @@ import { News } from "../pages/News";
 import { CurrentNews } from "../pages/CurrentNews";
 import { NewLearn } from "../pages/NewLearn";
 import { Learn } from "../pages/Learn";
+import { Drop } from "../pages/Drop";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/learn",
         element: <Learn/>,
+      },
+      {
+        path: "/drop",
+        element: <Drop/>,
       },
     ]
   },

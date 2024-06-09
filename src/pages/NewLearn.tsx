@@ -1,4 +1,4 @@
-import { Box, Button, Modal, TextField, Typography } from "@mui/material"
+import { Box, Button, FormControl, InputLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material"
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../shared/firebase";
 import toast from "react-hot-toast";
@@ -18,6 +18,7 @@ const defaultValues = {
   email: "",
   phone: "",
   message: "",
+  type: "",
 };
 
 export const createUser = async (params: any) => {
@@ -156,6 +157,33 @@ export const NewLearn = () => {
             />
 
             <Controller
+              name="type"
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Обучение</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={value}
+                    label="Обучение"
+                    onChange={onChange}
+                    color={errors.type ? "error" : "secondary"}
+                  >
+                    <MenuItem value={"Автошкола"}>Автошкола</MenuItem>
+                    <MenuItem value={"Спортивная организация"}>Спортивная организация</MenuItem>
+                    <MenuItem value={"Авиационно-спортивный клуб"}></MenuItem>
+                    <MenuItem value={"Удаленные классы автошкол"}>Удаленные классы автошкол</MenuItem>
+                    <MenuItem value={"Спортивно-техническая школа"}>Спортивно-техническая школа</MenuItem>
+                    <MenuItem value={"Учебныый центр"}>Учебныый центр</MenuItem>
+                    
+                  </Select>
+                </FormControl>
+              )}
+            />
+
+            <Controller
               name="message"
               control={control}
               rules={{ required: false }}
@@ -186,12 +214,37 @@ export const NewLearn = () => {
     </Modal>
 
 
+
+
       <Box>
-        <Typography>
-          Запись на обучение в лётную школу
+        <Box>
+          <img src="DSC_7929.jpg" width='100%' height='100%'/>
+        </Box>
+      
+        <Typography sx={{
+          p:1
+        }}>
+          Образование:<br/>
+          — Авиационно-спортивные клубы<br/>
+          — Автошколы<br/>
+          — Удаленные классы автошкол<br/>
+          — Спортивно-технические школы<br/>
+          — Спортивные организации<br/>
+          — Учебные центры<br/>
+
+
+        </Typography>
+        <Typography textAlign='center' sx={{
+          p:1
+        }}>
+          <br/>
+          Для записи на обучение заполните форму
         </Typography>
       </Box>
-      <Box>
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center'
+      }}>
         <Button onClick={createRecord} variant="contained" disabled={loading || !!userData.email }>
           {!!userData.email ? "Вы уже записаны" : "Записаться"}
         </Button>

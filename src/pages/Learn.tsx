@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { fetchUser } from "./NewLearn";
 import { auth, db } from "../shared/firebase";
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import BasicTable from "../components/Table/Table";
 
 export const fetchLearn = async (user: any) => {
@@ -16,13 +16,13 @@ export const fetchLearn = async (user: any) => {
 
   const promises = querySnapshot.docs.map(async (document) => {
     const d = await document.data();
-    const [userData, teacherData, planeData] = await Promise.all([
+    const [userData, teacherData, techData] = await Promise.all([
       getDoc(doc(db, "users", d.user.id)).then(userDoc => userDoc.data()),
       getDoc(doc(db, "teachers", d.teacher.id)).then(teacherDoc => teacherDoc.data()),
-      getDoc(doc(db, "planes", d.plane.id)).then(planeDoc => planeDoc.data())
+      getDoc(doc(db, "tech", d.tech.id)).then(techDoc => techDoc.data())
     ]);
 
-    return { date: d.date, email: d.email, user: userData, teacher: teacherData, plane: planeData, uid: document.id, status: d.status };
+    return { date: d.date, email: d.email, user: userData, teacher: teacherData, tech: techData, uid: document.id, status: d.status, type: d.type };
   });
 
   // Ожидание завершения всех промисов
@@ -58,14 +58,22 @@ export const Learn = () => {
 
   if(!learn.length)
     return (
-      <Box>
-        У вас нет никаких записей уроков
+      <Box sx={{
+        minHeight: '60vh'
+      }}>
+        <Typography textAlign='center' sx={{
+          p:1
+        }}>
+          У вас нет никаких уроков
+        </Typography>
       </Box>
     )
 
   return (
     <Box sx={{
-      p:1
+      p:1,
+      my: 'auto',
+      minHeight: '60vh'
     }}>
       <Box>
         <BasicTable rows={learn}/>

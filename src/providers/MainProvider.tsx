@@ -1,6 +1,5 @@
 import { Box, ThemeProvider, createTheme } from "@mui/material";
 import { Toaster } from "react-hot-toast";
-// import AuthProvider from "./AuthProvider";
 import { PropsWithChildren, useEffect } from "react";
 import { fetchChats } from "../pages/News";
 import dayjs from "dayjs";
@@ -77,7 +76,6 @@ export default function MainProvider({ children }: PropsWithChildren) {
     <>
       <Toaster position="top-right" />
         <ThemeProvider theme={theme}>
-          {/* <AuthProvider> */}
             <Box
               sx={{
                 display: "flex",
@@ -91,7 +89,6 @@ export default function MainProvider({ children }: PropsWithChildren) {
                 }}/>
               </ScrollToTop>
             </Box>
-          {/* </AuthProvider> */}
         </ThemeProvider>
     </>
   );

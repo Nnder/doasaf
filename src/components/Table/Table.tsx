@@ -8,13 +8,15 @@ import Paper from '@mui/material/Paper';
 import dayjs from 'dayjs';
 
 export default function BasicTable({rows}: {rows: any[]}) {
+  console.log(rows)
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Учитель</TableCell>
-            <TableCell align="right">Самолет</TableCell>
+            <TableCell align="right">Обучение</TableCell>
+            <TableCell align="right">Транспорт</TableCell>
             <TableCell align="right">Дата</TableCell>
             <TableCell align="right">Статус</TableCell>
           </TableRow>
@@ -28,7 +30,8 @@ export default function BasicTable({rows}: {rows: any[]}) {
               <TableCell component="th" scope="row">
                 {row.teacher.fio}
               </TableCell>
-              <TableCell align="right">{row.plane.model}</TableCell>
+              <TableCell align="right">{row.type}</TableCell>
+              <TableCell align="right">{row.tech.model}</TableCell>
               <TableCell align="right">{dayjs.unix(row.date.seconds || 0).format('YYYY-MM-DD HH:mm')}</TableCell>
               <TableCell sx={{
                 color: ()=>{
