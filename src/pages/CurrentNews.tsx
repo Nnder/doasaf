@@ -24,7 +24,7 @@ export const CurrentNews: FC<{}> = () => {
     }).catch((e)=>{
       console.log(e.message);
     })
-  }, [])
+  }, [id])
 
   useEffect(()=>{
     setCurrentNews(news.find((item)=>item.uid === id) || undefined)
