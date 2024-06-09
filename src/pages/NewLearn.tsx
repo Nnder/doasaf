@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material"
+import { Box, Button, Modal, TextField, Typography } from "@mui/material"
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../shared/firebase";
 import toast from "react-hot-toast";
@@ -18,7 +18,6 @@ const defaultValues = {
   email: "",
   phone: "",
   message: "",
-  type: "",
 };
 
 export const createUser = async (params: any) => {
@@ -157,33 +156,6 @@ export const NewLearn = () => {
             />
 
             <Controller
-              name="type"
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { value, onChange } }) => (
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Обучение</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={value}
-                    label="Обучение"
-                    onChange={onChange}
-                    color={errors.type ? "error" : "secondary"}
-                  >
-                    <MenuItem value={"Автошкола"}>Автошкола</MenuItem>
-                    <MenuItem value={"Спортивная организация"}>Спортивная организация</MenuItem>
-                    <MenuItem value={"Авиационно-спортивный клуб"}></MenuItem>
-                    <MenuItem value={"Удаленные классы автошкол"}>Удаленные классы автошкол</MenuItem>
-                    <MenuItem value={"Спортивно-техническая школа"}>Спортивно-техническая школа</MenuItem>
-                    <MenuItem value={"Учебныый центр"}>Учебныый центр</MenuItem>
-                    
-                  </Select>
-                </FormControl>
-              )}
-            />
-
-            <Controller
               name="message"
               control={control}
               rules={{ required: false }}
@@ -218,21 +190,23 @@ export const NewLearn = () => {
 
       <Box>
         <Box>
-          <img src="DSC_7929.jpg" width='100%' height='100%'/>
+          <img src="1.jpg" width='100%' height='100%'/>
         </Box>
       
         <Typography sx={{
           p:1
         }}>
-          Образование:<br/>
-          — Авиационно-спортивные клубы<br/>
-          — Автошколы<br/>
-          — Удаленные классы автошкол<br/>
-          — Спортивно-технические школы<br/>
-          — Спортивные организации<br/>
+          Екатеринбургский авиационно-спортивный клуб ДОСААФ имени Героя Советского Союза А.К. Серова предлагает:
+          <br/><br/>
+          — Работа с молодёжью по линии десантных военно-патриотических клубов, парашютной, самолётной, планерной секций, авиамодельных кружков;<br/>
+          — Военно-спортивные лагеря с профильной авиационной подготовкой;<br/>
+          — Парашютные прыжки;<br/>
+          — Ознакомительные полёты на высший пилотаж на самолёте Як-52;<br/>
+          — Ознакомительные полёты на самолётах Як-18Т, Вильга-35А;<br/>
+          — Полёты на планерах Бланик Л-13;<br/>
+          — Лётное обучение по программам «Пилот – любитель», «Лётчик-спортсмен»;<br/>
+          — Показательные выступления спортсменов-лётчиков, парашютистов и авиамоделистов.<br/>
           — Учебные центры<br/>
-
-
         </Typography>
         <Typography textAlign='center' sx={{
           p:1

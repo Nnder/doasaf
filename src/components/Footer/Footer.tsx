@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material"
 import { Link } from "react-router-dom";
 
-const pages = [{path:'/news', name:'Новости'}, {path:'/newRecord', name:'Запись на обучение'}, {path:'/learn', name:'Занятия'}, {path:'/drop', name:'прыжки с парашютом'}];
+const pages = [{path:'/news', name:'Новости'}, {path:'/newRecord', name:'Запись на обучение'}, {path:'/learn', name:'Занятия'}, {path:'/drop', name:'Прыжки с парашютом'}, {path:'/contacts', name:'Контакты'}];
 
 export const Footer = () => {
   return (

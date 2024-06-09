@@ -22,7 +22,7 @@ export const fetchLearn = async (user: any) => {
       getDoc(doc(db, "tech", d.tech.id)).then(techDoc => techDoc.data())
     ]);
 
-    return { date: d.date, email: d.email, user: userData, teacher: teacherData, tech: techData, uid: document.id, status: d.status, type: d.type };
+    return { date: d.date, email: d.email, user: userData, teacher: teacherData, tech: techData, uid: document.id, status: d.status};
   });
 
   // Ожидание завершения всех промисов

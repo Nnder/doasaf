@@ -5,6 +5,7 @@ import { CurrentNews } from "../pages/CurrentNews";
 import { NewLearn } from "../pages/NewLearn";
 import { Learn } from "../pages/Learn";
 import { Drop } from "../pages/Drop";
+import { Contacts } from "../pages/Contacts";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/drop",
         element: <Drop/>,
+      },
+      {
+        path: "/contacts",
+        element: <Contacts/>,
       },
     ]
   },

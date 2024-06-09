@@ -13,7 +13,7 @@ import { signOut } from "firebase/auth";
 import signInWithGoogle from "../../shared/SignInWithGoogle";
 import toast from "react-hot-toast";
 
-const pages = [{path:'/news', name:'новости'}, {path:'/newRecord', name:'запись на обучение'}, {path:'/learn', name:'занятия'}, {path:'/drop', name:'прыжки с парашютом'}];
+const pages = [{path:'/news', name:'новости'}, {path:'/newRecord', name:'запись на обучение'}, {path:'/learn', name:'занятия'}, {path:'/drop', name:'прыжки с парашютом'}, {path:'/contacts', name:'Контакты'}];
 const settings = [{callback: ()=> signOut(auth), name:'Выход'}];
 
 export const Navbar = () => {
