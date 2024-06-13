@@ -11,6 +11,7 @@ import {
   useForm,
 } from "react-hook-form";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { CarouselWidget, carouselImageITem } from "../components/Carousel/Carousel";
 
 const defaultValues = {
   createdAt: new Date(), 
@@ -189,8 +190,30 @@ export const NewLearn = () => {
 
 
       <Box>
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems:'center',
+        flexDirection: 'column',
+      }}>
+        <Typography textAlign='center' sx={{
+          p:1
+        }}>
+          <br/>
+          Для записи на обучение заполните форму
+        </Typography>
+
+        <Button onClick={createRecord} variant="contained" disabled={loading || !!userData.email } sx={{
+          width: 150,
+          mb:1
+        }}>
+          {!!userData.email ? "Вы уже записаны" : "Записаться"}
+        </Button>
+       
+      </Box>
+
         <Box>
-          <img src="1.jpg" width='100%' height='100%'/>
+          <CarouselWidget Component={carouselImageITem} news={[{src: '64-4abhuE7U.jpg'},{src: 'CgAOw33e4mY.jpg'},{src: '_u3iVB1dXq8.jpg'}]}/>
         </Box>
       
         <Typography sx={{
@@ -208,21 +231,9 @@ export const NewLearn = () => {
           — Показательные выступления спортсменов-лётчиков, парашютистов и авиамоделистов.<br/>
           — Учебные центры<br/>
         </Typography>
-        <Typography textAlign='center' sx={{
-          p:1
-        }}>
-          <br/>
-          Для записи на обучение заполните форму
-        </Typography>
       </Box>
-      <Box sx={{
-        display: 'flex',
-        justifyContent: 'center'
-      }}>
-        <Button onClick={createRecord} variant="contained" disabled={loading || !!userData.email }>
-          {!!userData.email ? "Вы уже записаны" : "Записаться"}
-        </Button>
-      </Box>
+      
     </Box>
   )
 }
+

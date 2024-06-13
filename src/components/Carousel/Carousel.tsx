@@ -58,3 +58,16 @@ export const NewsCarouselItem: FC<{item: INews<string>}>  = ({item}) =>
       </Box>
     )
   }
+
+
+export const carouselImageITem = ({item}: any) => {
+  return (
+    <Box sx={{
+
+      height: {xs: 300, sm: 550, md: 550, lg:700, xl: 850},
+    }}>
+      <img src={item.src} width='100%' height='100%'/>
+    </Box>
+    
+  )
+}

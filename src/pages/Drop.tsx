@@ -1,10 +1,11 @@
 import { Box, Typography } from '@mui/material'
+import { CarouselWidget, carouselImageITem } from '../components/Carousel/Carousel'
 
 export const Drop = () => {
   return (
     <Box>
       <Box>
-        <img src="141171.webp" width='100%' height='100%'/>
+        <CarouselWidget Component={carouselImageITem} news={[{src: 'iv3B_SNISmA.jpg'},{src: 'mDjUCpafMjY.jpg'},{src: 'SSsFMk_BKQg.jpg'}, ]}/>
       </Box>
       
       <Typography sx={{

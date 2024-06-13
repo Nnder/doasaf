@@ -72,6 +72,9 @@ export const Contacts = () => {
           Сильнейшими в стране стали команды Свердловской области по скоростному плаванию в ластах, авиамодельному спорту, картингу, морскому многоборью, судомодельному и водно-моторному спорту.
         </Typography>
       </Box>
+      <Box>
+      <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A66ea0aa0363a93c1509dc2f75af090511e8b7d717150db10bf801f6fd1f9cd75&amp;source=constructor" width="100%" height="449"></iframe>
+      </Box>
     </Box>
   )
 }
