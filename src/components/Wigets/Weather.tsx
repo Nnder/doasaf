@@ -46,7 +46,7 @@ export const Weather = () => {
             alignItems: 'center'
           }}>
             {weather?.city ? 
-            weather.forecast.map((data: any)=><WeatherItem key={data.day} data={data}/>)
+            weather.forecast.map((data: any, i:number)=><WeatherItem key={data.day} data={data} i={i}/>)
             : '...Загрузка погоды'}
           </Box>
 
@@ -56,11 +56,12 @@ export const Weather = () => {
   )
 }
 
-export const WeatherItem = ({data}: {data: any}) => {
+export const WeatherItem = ({data, i}: {data: any, i: number}) => {
   return (
     <Paper elevation={16} sx={{
       m:1,
-      p:1,
+      p: i === 0 ? 0.9 : 1,
+      border: i === 0 ? "1px solid blue" : 'none',
     }}>
       <Box sx={{
         minWidth: 200,
