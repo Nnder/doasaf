@@ -1,6 +1,5 @@
 import { AppBar, Box, Button, Container, IconButton, Menu, Toolbar, Tooltip, Typography } from "@mui/material"
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
 import { useState } from "react";
@@ -117,7 +116,6 @@ export const Navbar = () => {
               <Box sx={{
                   display: 'flex',
                 }}>
-                <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                 <Typography
                   variant="h5"
                   noWrap
@@ -132,7 +130,7 @@ export const Navbar = () => {
                     textDecoration: 'none',
                   }}
                 >
-                  LOGO
+                  ДОСААФ
                 </Typography>
               </Box>
             </NavLink>

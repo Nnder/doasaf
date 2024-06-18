@@ -7,12 +7,12 @@ import { Box, Typography } from "@mui/material";
 import BasicTable from "../components/Table/Table";
 
 export const fetchLearn = async (user: any) => {
-  const queryChats = await query(
+  const queryNews = await query(
     collection(db, "learn"),
     where("email", "==", user.email),
   );
 
-  const querySnapshot = await getDocs(queryChats);
+  const querySnapshot = await getDocs(queryNews);
 
   const promises = querySnapshot.docs.map(async (document) => {
     const d = await document.data();

@@ -1,7 +1,7 @@
 import { Box, ThemeProvider, createTheme } from "@mui/material";
 import { Toaster } from "react-hot-toast";
 import { PropsWithChildren, useEffect } from "react";
-import { fetchChats } from "../pages/News";
+import { fetchNews } from "../pages/News";
 import dayjs from "dayjs";
 import { setStore, store } from "../redux/redux";
 import ScrollToTop from "react-scroll-up";
@@ -61,7 +61,7 @@ const theme = createTheme({
 
 export default function MainProvider({ children }: PropsWithChildren) {
   useEffect(()=>{
-    fetchChats().then((data)=> {
+    fetchNews().then((data)=> {
       const updatedNews = data.map(newsItem => ({
         ...newsItem,
         createdAt: dayjs.unix(newsItem.createdAt ? newsItem.createdAt.seconds : 0).format('YYYY-MM-DD HH:mm')

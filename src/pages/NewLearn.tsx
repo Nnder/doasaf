@@ -27,14 +27,14 @@ export const createUser = async (params: any) => {
 };
 
 export const fetchUser = async (user: any) => {
-  const queryChats = await query(
+  const queryNews = await query(
     collection(db, "users"),
     where("email", "==", user.email),
   );
 
   let userData = {};
 
-  const querySnapshot = await getDocs(queryChats);
+  const querySnapshot = await getDocs(queryNews);
   querySnapshot.forEach((doc) => {
     const data = doc.data()
     if(data.email == user.email)

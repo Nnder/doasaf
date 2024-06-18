@@ -5,7 +5,7 @@ import { setStore, store } from "../redux/redux"
 import { useParams } from "react-router-dom"
 import { Item } from "../components/News/Item"
 import { INews } from "../types/News"
-import { fetchChats } from "./News"
+import { fetchNews } from "./News"
 import dayjs from "dayjs"
 export const CurrentNews: FC<{}> = () => {
   const { id } = useParams();
@@ -13,7 +13,7 @@ export const CurrentNews: FC<{}> = () => {
   const [currentNews, setCurrentNews] = useState<INews<string> | undefined>()
 
   useEffect(()=>{
-    fetchChats().then((data)=> {
+    fetchNews().then((data)=> {
       const updatedNews = data.map(newsItem => ({
         ...newsItem,
         createdAt: dayjs.unix(newsItem.createdAt ? newsItem.createdAt.seconds : 0).format('YYYY-MM-DD HH:mm')
