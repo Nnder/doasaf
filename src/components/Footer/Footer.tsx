@@ -37,7 +37,7 @@ export const Footer = () => {
           py:1,
           m:1,
         }}>
-          <a style={{color: '#fff'}} href="https://yandex.ru">Согласие на обработку персональных данных</a>
+          <a style={{color: '#fff'}} href="https://yandex.ru/legal/direct_dpa/">Согласие на обработку персональных данных</a>
         </Typography>
         <Typography textAlign='center' sx={{
           color:'secondary.main',

@@ -204,7 +204,7 @@ export const NewLearn = () => {
                     onChange={(e)=>{onChange(e); setButton(value)}}
                   />
                   <Typography align="center" sx={{color:'#fff' }}>
-                    <a style={{"color": '#fff'}} href="https://yandex.ru">
+                    <a style={{"color": '#fff'}} href="https://yandex.ru/legal/direct_dpa/">
                       согласие на обработку персональных данных
                     </a>
                   </Typography>
