@@ -9,6 +9,9 @@ import { KeyboardDoubleArrowUp } from "@mui/icons-material";
 
 const theme = createTheme({
   palette: {
+    text: {
+      disabled: '#fff'
+    },
     primary: {
       main: "#534B52",
     },

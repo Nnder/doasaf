@@ -1,8 +1,9 @@
-import { Box, Button, Modal, TextField, Typography } from "@mui/material"
+import { Box, Button, Checkbox, Modal, TextField, Typography } from "@mui/material"
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../shared/firebase";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
+import InputMask from 'react-input-mask';
 
 import {
   Controller,
@@ -19,6 +20,7 @@ const defaultValues = {
   email: "",
   phone: "",
   message: "",
+  check: true,
 };
 
 export const createUser = async (params: any) => {
@@ -44,6 +46,7 @@ export const fetchUser = async (user: any) => {
 };
 
 export const NewLearn = () => {
+  const [buttonIsOn, setButton] = useState(true)
   const [user, loading] = useAuthState(auth);
   const [open, setOpen] = useState(false)
   // @ts-ignore
@@ -76,7 +79,8 @@ export const NewLearn = () => {
   }, [userData])
   
 
-  const handle = async (data: FieldValues) => {
+  const handle = async (d: FieldValues) => {
+    let {check, ...data} = d
     // @ts-ignore
     createUser(data).then((u)=> setUserData(u))
     toast("Запрос отправлен")
@@ -129,10 +133,13 @@ export const NewLearn = () => {
               rules={{ required: true }}
               render={({ field: { value, onChange } }) => (
                 <TextField
-                  disabled
+                  disabled={true}
                   variant="filled"
                   color={errors.email ? "error" : "secondary"}
-                  sx={{ width: 1, m: 1 }}
+                  sx={{ 
+                    width: 1, 
+                    m: 1, 
+                  }}
                   label="Почта"
                   value={value}
                   onChange={onChange}
@@ -145,14 +152,21 @@ export const NewLearn = () => {
               control={control}
               rules={{ required: true }}
               render={({ field: { value, onChange } }) => (
-                <TextField
-                  variant="filled"
-                  color={errors.phone ? "error" : "secondary"}
-                  sx={{ width: 1, m: 1 }}
-                  label="Телефон"
-                  value={value}
-                  onChange={onChange}
-                />
+                <InputMask mask="+7 (999) 999-99-99" value={value} onChange={onChange}>
+                  {
+                    // @ts-ignore
+                  (inputProps: any) => (
+                    <TextField
+                      variant="filled"
+                      color={errors.phone ? "error" : "secondary"}
+                      sx={{ width: 1, m: 1 }}
+                      label="Телефон"
+                      value={value}
+                      onChange={onChange}
+                      type="tel"
+                    />
+                  )}
+                </InputMask>
               )}
             />
 
@@ -165,11 +179,36 @@ export const NewLearn = () => {
                   multiline
                   variant="filled"
                   color={errors.message ? "error" : "secondary"}
-                  sx={{ width: 1, m: 1 }}
+                  sx={{ width: 1, m: 1,}}
                   label="Дополнительная информация"
                   value={value}
                   onChange={onChange}
                 />
+              )}
+            />
+
+            <Controller
+              name="check"
+              control={control}
+              rules={{ required: false }}
+              render={({ field: { value, onChange } }) => (
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                }}>
+                  <Checkbox
+                    color={errors.check ? "error" : "secondary"}
+                    value={value}
+                    onChange={(e)=>{onChange(e); setButton(value)}}
+                  />
+                  <Typography align="center" sx={{color:'#fff' }}>
+                    <a style={{"color": '#fff'}} href="https://yandex.ru">
+                      согласие на обработку персональных данных
+                    </a>
+                  </Typography>
+                </Box>
               )}
             />
           </div>
@@ -178,6 +217,7 @@ export const NewLearn = () => {
               sx={{ width: 1 }}
               variant="contained"
               onClick={handleSubmit((data) => handle(data))}
+              disabled={buttonIsOn}
             >
               Отправить
             </Button>

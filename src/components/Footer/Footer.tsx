@@ -32,6 +32,13 @@ export const Footer = () => {
         ))}
       </Box>
       <Box>
+      <Typography textAlign='center' sx={{
+          color:'secondary.main',
+          py:1,
+          m:1,
+        }}>
+          <a style={{color: '#fff'}} href="https://yandex.ru">Согласие на обработку персональных данных</a>
+        </Typography>
         <Typography textAlign='center' sx={{
           color:'secondary.main',
           py:1,
