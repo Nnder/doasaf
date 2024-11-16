@@ -16,7 +16,7 @@
     "@mui/material": "^5.15.19",
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.2.5",
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "dayjs": "^1.11.11",
     "firebase": "^10.12.2",
     "react": "^18.2.0",
